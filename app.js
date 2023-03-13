@@ -1,19 +1,14 @@
-const http = require('http');
+const http = require("http");
+const fs = require("fs");
 
-const server = http.createServer((req, res) => {
-  if(req.url === '/') {
-    res.end("This is the Home Page");
-  }
+const func1 = () => console.log("Function 1");
+const func2 = () => console.log("Function 2");
 
-  if(req.url === '/about') {
-    res.end("This is the about page");
-  }
+const funct3 = () =>  {
+  func1();
+  setTimeout(func1, 0);
+  func2();
+}
 
-  res.end (
-    `<h1>Opps This page does not exist</h1>
-    <h2>Pleas visit the home page </h2>
-    <a href="/">back Home</a>`
-  )
-});
 
-server.listen(5000);
+funct3()
