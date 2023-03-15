@@ -1,52 +1,10 @@
 const express = require("express");
 const routers = express.Router();
-const connect = require("./../database/mongoconfig");
 const bookController = require("./../controller/BookController");
-ObjectID = require('mongodb').ObjectId;
-//const { ObjectId } = require("mongodb");
-
-
 
 routers.route('/')
-    .get(async (req, res) => {
-        const db = await connect();
-        const books = await db.collection('book').find().toArray();
-        await res.json(books);
-        //res.sendFile(path.join(__dirname, "/../Pages/home.html"));
-    }).post(async (req, res) => {
-        const data = {
-            desciption: "This is a data that is send using Json",
-            author: "xyz",
-        };
-        const db = await connect();
-        const r = await db.collection('book').insertOne(req.body);
-        console.log(r);
-        res.json({
-            data: "Book is Stored"
-        })
-    });
+    .get(bookController.index).post(bookController.store);
 
-routers.route("/:id").get(async (req, res) => {
-    const _id = new ObjectID(req.params.id);
-    const db = await connect();
-    const book = await db
-        .collection('book')
-        .find({ _id })
-        .toArray();
-    res.json(book)
-
-}).patch(async (req, res) => {
-    const _id = new ObjectID(req.params.id);
-    const db = await connect();
-    const data = await db.collection('book').updateOne({ _id }, { $set: req.body });
-    res.json(data);
-}).delete(async (req, res) => {
-    const _id = new ObjectID(req.params.id);
-    const db = await connect();
-    const data = await db.collection('book').deleteOne({ _id });
-    res.json({
-        data: "is Deleted"
-    });
-})
+routers.route("/:id").get(bookController.showOne).patch(bookController.updateOne).delete(bookController.deleteOne);
 
 module.exports = routers;
