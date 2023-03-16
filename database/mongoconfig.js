@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+/* const { MongoClient } = require('mongodb');
 // or as an es module:
 // import { MongoClient } from 'mongodb'
 
@@ -17,6 +17,6 @@ async function connects() {
 }
 
 
-module.exports = connects;
+module.exports = connects; */
 
 

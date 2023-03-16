@@ -1,9 +1,5 @@
 const express = require("express");
-
 const routers = express.Router();
-const path = require("path");
-const connect = require("./../database/mongoconfig");
-
 const bookroute = require("./bookroute");
 
 routers.use(bookroute);
